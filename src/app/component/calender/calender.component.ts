@@ -26,6 +26,25 @@ export class CalenderComponent {
     constructor(private matDialog:MatDialog,public calenderService:CalenderServiceService){}
       selectedDate!: Date;
      appointmentDetails:Appointment[]=[];
+     appointments:Appointment[]=[];
+
+     ngOnInit(){
+      this.calenderService.getEvents().subscribe(
+        (res)=>{
+          let date = new Date();
+         let datestr = date.getDate()+'-'+Number(date.getMonth()+1).toString()+'-'+date.getFullYear();
+         this.appointments=res;
+          this.appointmentDetails=res.filter((x)=>x.date===datestr);
+          
+          console.log(this.appointmentDetails)
+        },
+
+        (err)=>{
+          console.log("Error",err)
+        }
+      )
+
+     }
   
   createAppointment() {
     console.log(this.selectedDate)
@@ -37,13 +56,17 @@ export class CalenderComponent {
         console.log(this.calenderService.events)
       matRef.afterClosed().subscribe((result)=>{
       console.log("Result",result.data);
-      this.appointmentDetails=this.calenderService.events;
-      this.appointmentDetails[0].date=this.selectedDate?.toString();
-      console.log(this.appointmentDetails)
+      this.appointmentDetails=this.calenderService.events;  
+    let datestr = this.selectedDate.getDate()+'-'+Number(this.selectedDate.getMonth()+1).toString()+'-'+this.selectedDate.getFullYear();
+
+        
+      this.appointmentDetails[0].date=datestr;
         //post data
         this.calenderService.addEvent(this.appointmentDetails[0]).subscribe
         (
-          (res)=>{console.log("Details posted",res)},
+          (res)=>{
+            console.log("Details posted",res);
+          },
           (err)=>{console.log("Error",err)}
         )
     })
@@ -82,9 +105,17 @@ export class CalenderComponent {
     this.selectedDate= event;
     this.dayName=this.weekday[this.selectedDate.getDay()];
     this.appointmentDate=this.weekday[this.selectedDate.getUTCDate()];
+    let datestr = this.selectedDate.getDate()+'-'+Number(this.selectedDate.getMonth()+1).toString()+'-'+this.selectedDate.getFullYear();
+    console.log(datestr,this.appointmentDetails)
+    this.appointmentDetails=this.appointments.filter((x)=>x.date===datestr)
   }
-  delete(id:number){
-    this.appointmentDetails.splice(id,1);
+  delete(id:any){
+   // this.appointmentDetails.splice(id,1);
+   console.log(id);
+   this.calenderService.deleteEvents(id).subscribe(
+    (res)=>console.log("Event Successfully deleted"),
+    (err)=>console.log("Error",err)
+   )
     console.log(this.appointmentDetails)
   }
 }

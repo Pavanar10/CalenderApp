@@ -15,4 +15,12 @@ public events:Appointment[]=[];
   addEvent(data:Appointment):Observable<Appointment>{
   return this.http.post<Appointment>('http://localhost:3000/events',data);
   }
+
+  getEvents():Observable<Appointment[]>{
+    return this.http.get<Appointment[]>('http://localhost:3000/events');
+  }
+
+  deleteEvents(id:any):Observable<any>{
+    return this.http.delete('http://localhost:3000/events/'+id);
+  }
 }
