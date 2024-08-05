@@ -1,0 +1,28 @@
+   <div class="container">
+    <mat-card class="mat-card-calender" >
+        <button mat-raised-button (click)="createAppointment()" class="create">
+            <mat-icon>add</mat-icon>
+            Create Appointment
+          </button>
+          <mat-calendar  [(selected)]="selectedDate" (selectedChange)="onSelect($event)"></mat-calendar>
+    </mat-card>
+    <mat-card>
+        <mat-card-title>{{dayName|uppercase}}: {{   selectedDate|date:'dd-MM-yy'}} </mat-card-title>
+        <mat-card-subtitle style="font-size: large;font-weight: bold;">Appointment Details</mat-card-subtitle>
+            <mat-list cdkDropListGroup>
+                <mat-list-item style="height: 90px;font-size: 2em;" *ngFor="let time of timeSlots;let i =index" cdkDropList  [cdkDropListData]="getAppointmentsForTime(time)" (cdkDropListDropped)="drop($event, time)" >
+                    {{time}}
+                    <mat-divider [inset]="true"></mat-divider>
+                    <div  *ngFor="let appointment of getAppointmentsForTime(time)" cdkDrag>
+                          <mat-card-content style=" margin-left: 20px;background-color: rgb(201, 227, 149);font-size: 1.2em;border-radius: 5px;">
+                            {{ appointment.description }}
+                            <button style="float: right;" (click)="delete(appointment.id)"><mat-icon>delete</mat-icon></button>
+                          </mat-card-content>
+                      </div>
+                </mat-list-item>
+            </mat-list>
+        
+    </mat-card>
+  
+   </div>
+  

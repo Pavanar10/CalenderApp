@@ -7,4 +7,11 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'calenderApp';
+  selectedDate!: Date;
+  appointments:any[] = [];
+
+  onDateSelected(date: any) {
+    this.selectedDate = date;
+  }
+  
 }

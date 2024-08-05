@@ -1,0 +1,58 @@
+::ng-deep .mat-calendar {
+  font-size: 16px; /* Adjust the base font size */
+}
+
+::ng-deep .mat-calendar .mat-calendar-body-cell-content {
+  font-size: 1.5em; /* Adjust the date cell font size */
+}
+
+::ng-deep .mat-calendar .mat-calendar-period-button,
+::ng-deep .mat-calendar .mat-calendar-next-button,
+::ng-deep .mat-calendar .mat-calendar-previous-button {
+  font-size: 1.5em; /* Adjust the navigation button font size */
+  font-weight: 400;
+}
+
+
+::ng-deep .mat-calendar .mat-calendar-body-label {
+  font-size: 1.5em; /* Adjust the month/year label font size */
+}
+
+::ng-deep .mat-calendar .mat-calendar-table-header .mat-calendar-table-header-cell {
+  font-size: 1.5em; /* Adjust the weekday font size */
+}
+
+  .container {
+    display: flex;
+    flex-direction: row;
+     margin-left: 50px;
+    padding: 10px;
+    height: fit-content;
+  }
+  .create{
+    width: 50%;
+    font-size: 24px;
+    font-weight: bold;
+    background-color:rgba($color: #a0e48b, $alpha: 1.0);
+    border-radius: 20px;
+    height: 3rem;
+  }
+  mat-card{
+    margin-top: 1.2em;
+    margin-left: 100px;
+    width: 70%;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
+    
+}
+.mat-card-calender{
+  width: 40%;
+  height: 100%;
+  background-color: beige;
+}
+.card-appointment{
+  border: 1px solid red; 
+  margin-top: 15rem;
+  margin-left: 15rem;
+}
+ 
