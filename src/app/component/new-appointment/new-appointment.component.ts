@@ -1,6 +1,6 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { CalenderServiceService } from 'src/app/services/calender-service.service';
 import { Appointment } from '../interface/appointment';
@@ -16,6 +16,7 @@ export class NewAppointmentComponent {
 
 
   createForm:FormGroup = this.fb.group({
+    'date':this.data,
     'startTime':['',[Validators.required]],
     'endTime':['',[Validators.required]],
     'description':['',[Validators.required,Validators.maxLength(100)]],
@@ -28,11 +29,17 @@ export class NewAppointmentComponent {
     '01:00 PM', '02:00 PM', '03:00 PM', '04:00 PM', '05:00 PM'
   ];
 
-  constructor(public dialogRef:MatDialogRef<NewAppointmentComponent>,private fb:FormBuilder,public calenderService:CalenderServiceService){}
+  constructor(public dialogRef:MatDialogRef<NewAppointmentComponent>, @Inject(MAT_DIALOG_DATA) public data: any
+    ,private fb:FormBuilder,public calenderService:CalenderServiceService){}
+ngOnInit(){
+  console.log(this.data)
+}
+
   create(){
        this.appointments.push(this.createForm.value);
+   
       this.calenderService.events.push(this.createForm.value);
-      this.dialogRef.close({data:this.calenderService.events})
+      this.dialogRef.close({data:this.appointments})
   }
 
   close(){

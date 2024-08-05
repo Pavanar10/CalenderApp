@@ -22,6 +22,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {DragDropModule,CdkDragDrop} from '@angular/cdk/drag-drop';
 import {MatTableModule} from '@angular/material/table';
 import { TimeSlotSelectorComponent } from './component/time-slot-selector/time-slot-selector.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,7 @@ import { TimeSlotSelectorComponent } from './component/time-slot-selector/time-s
     MatInputModule,
     MatSelectModule,
     DragDropModule,
-    
+    HttpClientModule,
     MatTableModule
   ],
   providers: [],

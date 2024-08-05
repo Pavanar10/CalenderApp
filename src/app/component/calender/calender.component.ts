@@ -24,7 +24,7 @@ export class CalenderComponent {
   ];
 
     constructor(private matDialog:MatDialog,public calenderService:CalenderServiceService){}
-      selectedDate: Date | null = null;
+      selectedDate!: Date;
      appointmentDetails:Appointment[]=[];
   
   createAppointment() {
@@ -32,13 +32,20 @@ export class CalenderComponent {
     if (this.selectedDate) {
         console.log("time",event)
         const matRef = this.matDialog.open(NewAppointmentComponent,{
-          width:'500px'
+          width:'500px',data:{dateData:this.selectedDate}
         })
         console.log(this.calenderService.events)
-    matRef.afterClosed().subscribe((result)=>{
+      matRef.afterClosed().subscribe((result)=>{
       console.log("Result",result.data);
-      this.appointmentDetails=result.data
+      this.appointmentDetails=this.calenderService.events;
+      this.appointmentDetails[0].date=this.selectedDate?.toString();
       console.log(this.appointmentDetails)
+        //post data
+        this.calenderService.addEvent(this.appointmentDetails[0]).subscribe
+        (
+          (res)=>{console.log("Details posted",res)},
+          (err)=>{console.log("Error",err)}
+        )
     })
     } else {
       alert('Please select a date first.');
