@@ -9,7 +9,7 @@
         <mat-select formControlName="startTime">
             <mat-option *ngFor="let time of timeSlots" value={{time}}>{{time}}</mat-option>
           </mat-select>
-      <!--   <mat-error>{{createAccount.controls['email'].hasError('required')?'Email is required':'Please Enter Valid Email'}}</mat-error> -->
+      <mat-error>{{createForm.controls['startTime'].hasError('required')?'PLease enter start time':''}}</mat-error> 
     </mat-form-field>
     <mat-form-field appearance="outline">
         <mat-label >
@@ -18,8 +18,8 @@
         <mat-select formControlName="endTime">
             <mat-option *ngFor="let time of timeSlots" value={{time}}>{{time}}</mat-option>
           </mat-select>
-      <!--   <mat-error>{{createAccount.controls['username'].hasError('required')?'Username is required':'Username should be of max 10 characters'}}</mat-error>
-   -->   
+       <mat-error>{{createForm.controls['endTime'].hasError('required')?'PLease enter end time':''}}</mat-error>
+      
     </mat-form-field>
     <mat-form-field appearance="outline">
         <mat-label>
@@ -27,7 +27,7 @@
         </mat-label>
         <textarea matInput formControlName="description"></textarea>
         <!-- <input matInput type="password" formControlName="username">  -->
-       <!--  <mat-error>{{createAccount.controls['password'].hasError('required')?'Password is required':'Password should be of minimum 6 characters'}}</mat-error> -->
+      <mat-error>{{createForm.controls['description'].hasError('required')?'Please enter meeting details':''}}</mat-error> 
 
     </mat-form-field><mat-dialog-actions>
     <button mat-button (click)="close()">Cancel</button>

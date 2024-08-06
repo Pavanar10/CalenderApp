@@ -48,7 +48,9 @@ export class CalenderComponent {
   }
   
   createAppointment() {
-    if (this.selectedDate) {
+    let dateToday=new Date();
+    console.log(this.selectedDate,dateToday)
+    if (this.selectedDate && this.selectedDate>=dateToday) {
       const matRef = this.matDialog.open(NewAppointmentComponent, {
         width: '500px', data: { dateData: this.selectedDate }
       })
@@ -68,7 +70,7 @@ export class CalenderComponent {
           )
       })
     } else {
-      alert('Please select a date first.');
+      alert('Please select a available date.');
     }
   }
   getAppointmentsForTime(time: string): Appointment[] {
@@ -108,7 +110,8 @@ export class CalenderComponent {
     // this.appointmentDetails.splice(id,1);
     console.log(id);
     this.calenderService.deleteEvents(id).subscribe(
-      (res) => console.log("Event Successfully deleted"),
+      (res) => {console.log("Event Successfully deleted");
+      console.log(this.appointmentDetails)},
       (err) => console.log("Error", err)
     )
   }

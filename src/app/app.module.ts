@@ -21,7 +21,6 @@ import { MatNativeDateModule } from '@angular/material/core';
 import {MatSelectModule} from '@angular/material/select';
 import {DragDropModule,CdkDragDrop} from '@angular/cdk/drag-drop';
 import {MatTableModule} from '@angular/material/table';
-import { TimeSlotSelectorComponent } from './component/time-slot-selector/time-slot-selector.component';
 import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
@@ -29,7 +28,6 @@ import { HttpClientModule } from '@angular/common/http';
     AppComponent,
     CalenderComponent,
     NewAppointmentComponent,
-    TimeSlotSelectorComponent
   ],
   imports: [
     BrowserModule,
