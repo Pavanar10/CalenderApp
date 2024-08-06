@@ -23,53 +23,50 @@ export class CalenderComponent {
     '01:00 PM', '02:00 PM', '03:00 PM', '04:00 PM', '05:00 PM'
   ];
 
+  dayName:string='';
+  appointmentDate='';
+
     constructor(private matDialog:MatDialog,public calenderService:CalenderServiceService){}
       selectedDate!: Date;
      appointmentDetails:Appointment[]=[];
      appointments:Appointment[]=[];
 
-     ngOnInit(){
-      this.calenderService.getEvents().subscribe(
-        (res)=>{
-          let date = new Date();
-         let datestr = date.getDate()+'-'+Number(date.getMonth()+1).toString()+'-'+date.getFullYear();
-         this.appointments=res;
-          this.appointmentDetails=res.filter((x)=>x.date===datestr);
-          
-          console.log(this.appointmentDetails)
-        },
+  ngOnInit() {
+    this.calenderService.getEvents().subscribe(
+      (res) => {
+        let date = new Date();
+        let datestr = date.getDate() + '-' + Number(date.getMonth() + 1).toString() + '-' + date.getFullYear();
+        this.appointments = res;
+        this.appointmentDetails = res.filter((x) => x.date === datestr);
+      },
 
-        (err)=>{
-          console.log("Error",err)
-        }
-      )
+      (err) => {
+        console.log("Error", err)
+      }
+    )
 
-     }
+  }
   
   createAppointment() {
-    console.log(this.selectedDate)
     if (this.selectedDate) {
-        console.log("time",event)
-        const matRef = this.matDialog.open(NewAppointmentComponent,{
-          width:'500px',data:{dateData:this.selectedDate}
-        })
-        console.log(this.calenderService.events)
-      matRef.afterClosed().subscribe((result)=>{
-      console.log("Result",result.data);
-      this.appointmentDetails=this.calenderService.events;  
-    let datestr = this.selectedDate.getDate()+'-'+Number(this.selectedDate.getMonth()+1).toString()+'-'+this.selectedDate.getFullYear();
+      const matRef = this.matDialog.open(NewAppointmentComponent, {
+        width: '500px', data: { dateData: this.selectedDate }
+      })
+      matRef.afterClosed().subscribe((result) => {
+        this.appointmentDetails = this.calenderService.events;
+        let datestr = this.selectedDate.getDate() + '-' + Number(this.selectedDate.getMonth() + 1).toString() + '-' + this.selectedDate.getFullYear();
 
-        
-      this.appointmentDetails[0].date=datestr;
+
+        this.appointmentDetails[0].date = datestr;
         //post data
         this.calenderService.addEvent(this.appointmentDetails[0]).subscribe
-        (
-          (res)=>{
-            console.log("Details posted",res);
-          },
-          (err)=>{console.log("Error",err)}
-        )
-    })
+          (
+            (res) => {
+              console.log("Details posted", res);
+            },
+            (err) => { console.log("Error", err) }
+          )
+      })
     } else {
       alert('Please select a date first.');
     }
@@ -79,7 +76,6 @@ export class CalenderComponent {
     return res
   }
   drop(event: CdkDragDrop<Appointment[]>,time:string) {
-    console.log(event.currentIndex,event.previousIndex)
     if(event.previousContainer===event.container){ 
         moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
      }
@@ -91,15 +87,14 @@ export class CalenderComponent {
         event.currentIndex
       );
       // Update the appointment's time to the new time slot
-      console.log(event.currentIndex)
       event.container.data[event.currentIndex].startTime = time; 
-      console.log(event)
-      console.log("app",this.appointmentDetails)
+      //call update function
+      this.calenderService.updateEvents(this.appointmentDetails[0].id,this.appointmentDetails[0]).subscribe(
+        (response)=>{console.log("Response",response)},
+        (error)=>{console.log("Error",error)}
+      )
    }
   }
-
-  dayName:string='';
-  appointmentDate='';
 
   onSelect(event:Date){
     this.selectedDate= event;
@@ -109,13 +104,12 @@ export class CalenderComponent {
     console.log(datestr,this.appointmentDetails)
     this.appointmentDetails=this.appointments.filter((x)=>x.date===datestr)
   }
-  delete(id:any){
-   // this.appointmentDetails.splice(id,1);
-   console.log(id);
-   this.calenderService.deleteEvents(id).subscribe(
-    (res)=>console.log("Event Successfully deleted"),
-    (err)=>console.log("Error",err)
-   )
-    console.log(this.appointmentDetails)
+  delete(id: any) {
+    // this.appointmentDetails.splice(id,1);
+    console.log(id);
+    this.calenderService.deleteEvents(id).subscribe(
+      (res) => console.log("Event Successfully deleted"),
+      (err) => console.log("Error", err)
+    )
   }
 }

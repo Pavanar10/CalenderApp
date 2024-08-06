@@ -23,4 +23,8 @@ public events:Appointment[]=[];
   deleteEvents(id:any):Observable<any>{
     return this.http.delete('http://localhost:3000/events/'+id);
   }
+
+  updateEvents(id:any,appointmant:Appointment):Observable<Appointment>{
+    return this.http.put<Appointment>('http://localhost:3000/events/'+id,appointmant)
+  }
 }

@@ -31,15 +31,16 @@ export class NewAppointmentComponent {
 
   constructor(public dialogRef:MatDialogRef<NewAppointmentComponent>, @Inject(MAT_DIALOG_DATA) public data: any
     ,private fb:FormBuilder,public calenderService:CalenderServiceService){}
-ngOnInit(){
-  console.log(this.data)
-}
 
-  create(){
-       this.appointments.push(this.createForm.value);
-   
-      this.calenderService.events.push(this.createForm.value);
-      this.dialogRef.close({data:this.appointments})
+
+  ngOnInit() {
+    console.log(this.data)
+  }
+
+  create() {
+    this.appointments.push(this.createForm.value);
+    this.calenderService.events.push(this.createForm.value);
+    this.dialogRef.close({ data: this.appointments })
   }
 
   close(){
