@@ -10,10 +10,20 @@ import { Observable } from 'rxjs';
 export class CalenderServiceService {
 public events:Appointment[]=[];
 
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient) { 
+    this.getEvents().subscribe(
+      (res)=>{
+        this.events=res
+      },
+    (err)=>{
+      console.log("Error");
+    })
+  }
 
   addEvent(data:Appointment):Observable<Appointment>{
+    
   return this.http.post<Appointment>('http://localhost:3000/events',data);
+  
   }
 
   getEvents():Observable<Appointment[]>{

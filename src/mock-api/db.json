@@ -1,25 +1,11 @@
 {
   "events": [
     {
-      "id": "204d",
-      "date": "7-8-2024",
-      "startTime": "10:00 AM",
-      "endTime": "11:00 AM",
-      "description": "dfdsf"
-    },
-    {
-      "id": "20a6",
-      "date": "8-8-2024",
-      "startTime": "10:00 AM",
-      "endTime": "11:00 AM",
-      "description": "dfdsf"
-    },
-    {
-      "id": "65f7",
-      "date": "9-8-2024",
-      "startTime": "12:00 PM",
-      "endTime": "01:00 PM",
-      "description": "sdfsdfds"
+      "id": "c2a0",
+      "date": "10-8-2024",
+      "startTime": "03:00 PM",
+      "endTime": "05:00 PM",
+      "description": "rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr"
     }
   ]
 }

@@ -14,7 +14,7 @@
                     {{time}}
                     <mat-divider [inset]="true"></mat-divider>
                     <div  *ngFor="let appointment of getAppointmentsForTime(time)" cdkDrag>
-                          <mat-card-content style=" margin-left: 20px;background-color: rgb(201, 227, 149);font-size: 1.2em;border-radius: 5px;">
+                          <mat-card-content  style=" margin-left: 20px;background-color: rgb(201, 227, 149);font-size: 1.2em;border-radius: 5px;">
                             {{ appointment.description }}
                             <button style="float: right;" (click)="delete(appointment.id)"><mat-icon>delete</mat-icon></button>
                           </mat-card-content>
