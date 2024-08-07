@@ -63,8 +63,6 @@ export class CalenderComponent {
         this.calenderService.addEvent(this.appointmentDetails[this.appointmentDetails.length-1]).subscribe
           (
             (res) => {
-              console.log("Details posted", res);
-              console.log("afteradd",this.appointmentDetails)
               this.appointmentDetails=this.appointmentDetails.filter((x)=>x.date===this.dateStr)
             },
             (err) => { console.log("Error", err) }
@@ -92,8 +90,9 @@ export class CalenderComponent {
       );
       // Update the appointment's time to the new time slot
       event.container.data[event.currentIndex].startTime = time; 
+       
       //call update function
-      this.calenderService.updateEvents(this.appointmentDetails[0].id,this.appointmentDetails[0]).subscribe(
+      this.calenderService.updateEvents(this.appointmentDetails[event.currentIndex].id,this.appointmentDetails[event.currentIndex]).subscribe(
         (response)=>{console.log("Response",response)},
         (error)=>{console.log("Error",error)}
       )
@@ -110,15 +109,12 @@ dateStr='';
       (err)=>console.log(err)
     )
     this.appointmentDetails=this.appointments.filter((x)=>x.date===this.dateStr)
-    console.log("after filter",this.dateStr,this.appointmentDetails)
 
   }
   delete(id: any) {
     // this.appointmentDetails.splice(id,1);
-    console.log(id);
     this.calenderService.deleteEvents(id).subscribe(
       (res) => {console.log("Event Successfully deleted");
-    //  console.log(this.calenderService.events) 
         this.calenderService.getEvents().subscribe(
           (res)=>{
             this.appointmentDetails=res.filter((x)=>x.date===this.dateStr)
